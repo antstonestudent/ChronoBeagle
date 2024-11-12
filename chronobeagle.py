@@ -1,9 +1,9 @@
-from kivy.uix.settings import text_type
 # Main application base
 
 import kivy
 import subprocess
 import importlib
+from kivy.uix.settings import text_type
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
