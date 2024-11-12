@@ -1,5 +1,64 @@
 <MainScreen>:
-    Label:
-            text:'Task Scheduler'
-            font_size: 30
-            color: 0.2, 0.5, 0.8, 1
+        BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            Image:
+                source: 'images/logo.png'  # Path to application logo
+            Button:
+                text: 'Settings'
+                # Add functionality to navigate to settings screen
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            Label:
+                text: 'Day and Date'
+            Label:
+                text: 'Current Time'
+        
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            Button:
+                text: '?'
+                # Add functionality for the question mark button
+            Label:
+                text: 'User Added Name'
+            Label:
+                text: '1PM - 3PM'
+        
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            Button:
+                text: 'Add New Task'
+                # Add functionality for adding a new task
+            Button:
+                text: 'Sync Devices'
+                # Add functionality for syncing devices
+        
+        Widget:
+            size_hint_y: None
+            height: dp(2)
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Line:
+                    points: self.x, self.y, self.width, self.y
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            Label:
+                text: 'Upcoming'
+        
+        Label:
+            text: 'Day and Date (Future Tasks)'

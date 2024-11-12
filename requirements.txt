@@ -4,3 +4,4 @@ Pillow
 Pygments
 docutils
 pygame
+watchdog
