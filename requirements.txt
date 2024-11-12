@@ -5,3 +5,4 @@ Pygments
 docutils
 pygame
 watchdog
+pygame

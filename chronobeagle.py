@@ -1,6 +1,7 @@
 # Main application base
 
 import kivy
+
 import subprocess
 import importlib
 from kivy.uix.settings import text_type
