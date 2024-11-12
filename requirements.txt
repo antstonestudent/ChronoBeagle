@@ -1,0 +1,6 @@
+kivy==2.3.0
+Cython
+Pillow
+Pygments
+docutils
+pygame
