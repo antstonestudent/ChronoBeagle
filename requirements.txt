@@ -3,6 +3,8 @@ Cython
 Pillow
 Pygments
 docutils
-pygame
 watchdog
 pygame
+Pyjnius
+Setuptools
+PySDL2
