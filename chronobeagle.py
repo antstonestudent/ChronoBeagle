@@ -1,6 +1,7 @@
 # Main application base
 
 import kivy
+kivy.require('2.3.0')
 
 import subprocess
 import importlib
@@ -8,6 +9,8 @@ from kivy.uix.settings import text_type
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.lang import Builder
+from kivy.uix.boxlayout import BoxLayout
 
 # Function to check if dependencies need to be installed from requirements.txt
 def check_dependency(package_name):
@@ -18,14 +21,14 @@ def check_dependency(package_name):
         return False
 
 # List of required dependencies
-required_dependencies = ['kivy', 'Cython', 'Pillow', 'Pygments', 'docutils', 'pygame', 'watchdog', 'numpy', 'requests']
+required_dependencies = ['kivy', 'Cython', 'Pillow', 'Pygments', 'docutils', 'pygame', 'watchdog', 'numpy', 'requests' 'Pyjnius', 'Setuptools', 'PySDL2']
 
 # Function to install dependences from requirements.txt
 def install_dependencies():
     try:
         with open('requirements.txt') as f:
             for line in f:
-                subprocess.check_call(['pip', 'install', line.strip()])
+                subprocess.check_call(['pip', 'install', '--no-cache-dir', line.strip()])
         print("Dependencies installed successfully.")
     except subprocess.CalledProcessError as e:
         print("Error installing dependencies:", e)
@@ -62,13 +65,17 @@ class RegisterScreen(Screen):
 class ChronoBeagle(App):
     def build(self):
         sm = ScreenManager()
-        sm.add_widget(MainScreen(name='Task Scheduler'))
-        sm.add_widget(TimerScreen(name='Timer'))
-        sm.add_widget(TaskEditScreen(name='Task Editor'))
-        sm.add_widget(SettingsScreen(name='Settings'))
-        sm.add_widget(AddAppScreen(name='Add Application'))
-        sm.add_widget(LoginScreen(name='Login'))
-        sm.add_widget(RegisterScreen(name='Register an Account'))
+        sm.add_widget(MainScreen(name='scheduler'))
+        sm.add_widget(TimerScreen(name='timer'))
+        sm.add_widget(TaskEditScreen(name='taskedit'))
+        sm.add_widget(SettingsScreen(name='settings'))
+        sm.add_widget(AddAppScreen(name='addapp'))
+        sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(RegisterScreen(name='register'))
+
+        # Load the .kv file using builder
+        Builder.load_file('chronobeagle.kv')
+
         return sm
 
 if __name__ == '__main__':

@@ -1,0 +1,21 @@
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Task Scheduler'
+            color: 1, 0, 0, 1
+        Button:
+            text: 'Settings'
+            on_press: root.manager.current = 'settings'
+
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Settings'
+        Button:
+            text: 'Back'
+            on_press: root.manager.current = 'scheduler'
+
+ScreenManager:
+    on_kv_post: print("KV file loaded successfully")
