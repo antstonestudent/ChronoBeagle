@@ -3,81 +3,49 @@
 import kivy
 kivy.require('2.3.0')
 
-import subprocess
-import importlib
-from kivy.uix.settings import text_type
-from kivy.app import App
-from kivy.uix.label import Label
+import sys
+import os
+from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
+from kivy.metrics import Metrics
+from kivy.resources import resource_add_path
 
-# Function to check if dependencies need to be installed from requirements.txt
-def check_dependency(package_name):
-    try:
-        importlib.import_module(package_name)
-        return True
-    except ImportError:
-        return False
+# KivyMD import classes
+from kivymd.app import MDApp
+from kivymd.uix.navigationbar import MDNavigationBar
 
-# List of required dependencies
-required_dependencies = ['kivy', 'Cython', 'Pillow', 'Pygments', 'docutils', 'pygame', 'watchdog', 'numpy', 'requests' 'Pyjnius', 'Setuptools', 'PySDL2']
+# Path to the screens folder which include other screens
+sys.path.append('ChronoBeagle Project/libs')
+sys.path.append('ChronoBeagle Project/assets')
 
-# Function to install dependences from requirements.txt
-def install_dependencies():
-    try:
-        with open('requirements.txt') as f:
-            for line in f:
-                subprocess.check_call(['pip', 'install', '--no-cache-dir', line.strip()])
-        print("Dependencies installed successfully.")
-    except subprocess.CalledProcessError as e:
-        print("Error installing dependencies:", e)
+# Import the screens
+from libs.screens.tasksched import TaskSched
+from libs.screens.addapp import AddApp
+from libs.screens.login import Login
+from libs.screens.register import Register
+from libs.screens.settings0 import Settings0
+from libs.screens.taskedit import TaskEdit
+from libs.screens.timer import Timer
 
-# Check if all required dependencies are installed
-if all(check_dependency(dep) for dep in required_dependencies):
-    print("All required dependencies are already installed. Skipping dependency installation.")
-else:
-    print("Some dependencies are missing. Proceeding with dependency installation.")
-    install_dependencies() # Call the function to install dependencies
+sm = ScreenManager() # Create the ScreenManager
 
-# Screenmanager pages
-class MainScreen(Screen):
-    pass
-
-class TimerScreen(Screen):
-    pass
-
-class TaskEditScreen(Screen):
-    pass
-
-class SettingsScreen(Screen):
-    pass
-
-class AddAppScreen(Screen):
-    pass
-
-class LoginScreen(Screen):
-    pass
-
-class RegisterScreen(Screen):
-    pass
-
-class ChronoBeagle(App):
+class ChronoBeagleApp(MDApp):
     def build(self):
-        sm = ScreenManager()
-        sm.add_widget(MainScreen(name='scheduler'))
-        sm.add_widget(TimerScreen(name='timer'))
-        sm.add_widget(TaskEditScreen(name='taskedit'))
-        sm.add_widget(SettingsScreen(name='settings'))
-        sm.add_widget(AddAppScreen(name='addapp'))
-        sm.add_widget(LoginScreen(name='login'))
-        sm.add_widget(RegisterScreen(name='register'))
+        Window.size = [480, 800] # Adjust width and height if needed
 
-        # Load the .kv file using builder
-        Builder.load_file('chronobeagle.kv')
+        # Add screens to the ScreenManager
+        sm.add_widget(TaskSched(name='tasksched'))
+        # sm.add_widget(AddApp(name='addapp'))
+        # sm.add_widget(Login(name='login'))
+        # sm.add_widget(Register(name='register'))
+        # sm.add_widget(Settings0(name='settings0'))        
+        # sm.add_widget(TaskEdit(name='taskedit'))
+        # sm.add_widget(Timer(name='timer'))
+        # Add more screens as needed    
 
         return sm
 
 if __name__ == '__main__':
-    install_dependencies()
-    ChronoBeagle().run()
+    import dep_manager
+    ChronoBeagleApp().run()
